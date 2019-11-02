@@ -1,0 +1,10 @@
+name: LotCTrial
+description:
+version: 1.0.0
+author: CrystalClearView
+api-version: 1.13
+main: me.crystalclearview.lotctrial.Main
+commands:
+  croptrampling:
+  setfarm:
+  farm:
