@@ -1,0 +1,17 @@
+Messages:
+  prefix: '&cTicketGUI &8>'
+  devprefix: '&6DevTicket &8>'
+  worldprefix: '&3WorldTicket &8>'
+  modprefix: '&9ModTicket &8>'
+  communityprefix: '&dCommunityTicket &8>'
+  storyprefix: '&2StoryTicket &8>'
+
+  no-perm: '&4Error: &7Insufficent permissions | You need permission '
+  cooldowntime: '60'
+
+  devticketusage: 'Usage: &8/devreq <ticket>'
+  worldticketusage: 'Usage: &8/wreq <ticket>'
+  modticketusage: 'Usage: &8/modreq <ticket>'
+  communityticketusage: 'Usage: &8/creq <ticket>'
+  storyticketusage: 'Usage: &8/sreq <ticket>'
+

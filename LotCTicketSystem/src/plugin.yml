@@ -1,0 +1,17 @@
+name: LotCTicketSystem
+description: LotcGUI Ticket System
+version: 1.0.0
+author: CrystalClearView
+api-version: 1.13
+main: me.CrystalClearView.LotCTicketSystem.Ticket
+commands:
+  devreq:
+  wreq:
+  modreq:
+  creq:
+  sreq:
+  devtickets:
+  worldtickets:
+  modtickets:
+  communitytickets:
+  storytickets:
