@@ -2,6 +2,9 @@ package me.crystalclearview.lotctrial.Events;
 
 import me.crystalclearview.lotctrial.HarvestAmount;
 import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.Vault;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Location;
@@ -14,6 +17,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Random;
 
 public class HarvestEvent implements Listener {
 
@@ -76,7 +81,7 @@ public class HarvestEvent implements Listener {
                 b.setType(Material.AIR);
                 ItemMeta meta = tool.getItemMeta();
                 if (meta instanceof Damageable){
-                    ((Damageable) meta).setDamage(1);
+                    ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 1);
                 }
                 tool.setItemMeta(meta);
 
@@ -91,7 +96,7 @@ public class HarvestEvent implements Listener {
                 b.setType(Material.AIR);
                 ItemMeta meta = tool.getItemMeta();
                 if (meta instanceof Damageable){
-                    ((Damageable) meta).setDamage(1);
+                    ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 1);
                 }
                 tool.setItemMeta(meta);
 
@@ -106,7 +111,7 @@ public class HarvestEvent implements Listener {
                 b.setType(Material.AIR);
                 ItemMeta meta = tool.getItemMeta();
                 if (meta instanceof Damageable){
-                    ((Damageable) meta).setDamage(1);
+                    ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 1);
                 }
                 tool.setItemMeta(meta);
 
