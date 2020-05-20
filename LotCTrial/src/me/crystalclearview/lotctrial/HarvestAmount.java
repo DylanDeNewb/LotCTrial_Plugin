@@ -2,12 +2,11 @@ package me.crystalclearview.lotctrial;
 
 public enum HarvestAmount {
 
-
     //Enums used for receiving amounts of seeds and crop.
 
     stonewoodhoe(1,1),
-    irongoldhoe(2,2),
-    diamondhoe(3,3);
+    irongoldhoe(2,1),
+    diamondhoe(3,1);
 
     private int crop;
     private int seed;
