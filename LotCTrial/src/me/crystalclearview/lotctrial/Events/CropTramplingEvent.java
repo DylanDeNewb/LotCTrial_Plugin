@@ -21,7 +21,10 @@ public class CropTramplingEvent implements Listener {
     @EventHandler
     public void onInteractEvent(PlayerInteractEvent e) {
 
-        if (plugin.getConfig().getBoolean("crop-trampling") == false) { //Checking to see if Boolean is false
+        Player p = e.getPlayer();
+        Boolean ct = plugin.getConfig().getBoolean(p.getName() + ".crop-trampling");
+
+        if (!ct) { //Checking to see if Boolean is false
 
             Block b = e.getClickedBlock(); //Getting the farmland which has been jumped on.
 
@@ -31,14 +34,14 @@ public class CropTramplingEvent implements Listener {
                 }
             }
 
-        }else if(plugin.getConfig().getBoolean("crop-trampling") == true){ //Checking to see if Boolean is true
+        }else if(ct){ //Checking to see if Boolean is true
 
             Block b = e.getClickedBlock(); //Getting the farmland which has been jumped on.
-            Player p = e.getPlayer(); //Getting the player which had jumped on the block/farmland.
 
             if(e.getAction() == Action.PHYSICAL){ //Seeing if the action was done with the players body.
                 if(b.getType() == Material.FARMLAND){ //Seeing if the block is Farmland
                     e.setCancelled(false); //Lets the Farmland be destroyed
+                    b.setType(Material.DIRT);
                     p.sendMessage(ChatColor.RED + "You have uprooted some farmland! Please mind your step!");
                 }
             }
