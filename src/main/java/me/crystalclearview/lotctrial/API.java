@@ -26,11 +26,11 @@ public class API {
                 if(target == null){
                     p.sendMessage(ChatColor.RED + "Invalid player name!");
                 }else{
-                    if(!plugin.getConfig().getBoolean(target.getName() + ".crop-trampling")){
+                    if(!config.getBoolean(target.getName() + ".crop-trampling")){
                         config.set(target.getName() + ".crop-trampling", true); //Changing the Boolean to be true
                         plugin.saveConfig();
                         p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED for " + target.getName());
-                    }else if (plugin.getConfig().getBoolean(target.getName() + ".crop-trampling")) { //Checking if the String is true
+                    }else if (config.getBoolean(target.getName() + ".crop-trampling")) { //Checking if the String is true
                         config.set(p.getName() + ".crop-trampling", false); //Changing the boolean to be false
                         plugin.saveConfig();
                         p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED for " + target.getName());
@@ -45,13 +45,13 @@ public class API {
 
         }
         if (p.hasPermission("farming.croptrampling") || p.isOp()) {
-            if (!plugin.getConfig().getBoolean(p.getName() + ".crop-trampling")) { //Checking if the Boolean is false
-                plugin.getConfig().set(p.getName() + ".crop-trampling", true); //Changing the Boolean to be true
+            if (!config.getBoolean(p.getName() + ".crop-trampling")) { //Checking if the Boolean is false
+                config.set(p.getName() + ".crop-trampling", true); //Changing the Boolean to be true
                 plugin.saveConfig();
                 p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED");
                 return;
-            } else if (plugin.getConfig().getBoolean(p.getName() + ".crop-trampling")) { //Checking if the String is true
-                plugin.getConfig().set(p.getName() + ".crop-trampling", false); //Changing the boolean to be false
+            } else if (config.getBoolean(p.getName() + ".crop-trampling")) { //Checking if the String is true
+                config.set(p.getName() + ".crop-trampling", false); //Changing the boolean to be false
                 plugin.saveConfig();
                 p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED");
                 return;
