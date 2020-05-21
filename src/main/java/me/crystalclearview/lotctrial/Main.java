@@ -36,6 +36,7 @@ public class Main extends JavaPlugin {
     }
     public void onDisable(){
         getLogger().info("LotCTrial Plugin Disabled!");
+        saveConfig();
     }
 
     //Creating a static method to be able to access plugin in any class. (Getter and Setter)
