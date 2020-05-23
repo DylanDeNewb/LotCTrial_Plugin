@@ -29,7 +29,9 @@ public class CircumventPreventionEvent implements Listener {
     }
     @EventHandler (ignoreCancelled = true)
     public void onWaterBreakingWheat(BlockFromToEvent event) {
-        if (event.getBlock().getType().equals(Material.WATER) && event.getToBlock().getType().equals(Material.WHEAT)) {
+        Material type = event.getToBlock().getType();
+
+        if (event.getBlock().getType().equals(Material.WATER) && type.equals(Material.WHEAT) || type.equals(Material.POTATOES) || type.equals(Material.CARROTS) || type.equals(Material.BEETROOTS)) {
             event.getToBlock().setType(Material.AIR);
         }
     }
