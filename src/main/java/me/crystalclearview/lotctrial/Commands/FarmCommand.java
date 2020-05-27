@@ -42,7 +42,7 @@ public class FarmCommand implements CommandExecutor {
                         if (!(sender instanceof Player)) {
                             sender.sendMessage("Error: Player only command.");
                         }
-                        if(!config.getBoolean("Modules/hoecreation")){
+                        if(!config.getBoolean("Modules.hoecreation")){
                             p.sendMessage(ChatColor.RED + "This module is disabled!");
                         }
 
