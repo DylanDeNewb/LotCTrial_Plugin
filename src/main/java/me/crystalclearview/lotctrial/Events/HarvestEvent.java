@@ -124,8 +124,11 @@ public class HarvestEvent implements Listener {
                 tool.setItemMeta(meta);
 
                 p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
-            }
-
+            }else{
+                
+                e.setCancelled(true); //Stops wheat and seeds being given to the player
+                p.sendMessage(ChatColor.RED + "The " + ChatColor.GOLD + b.getType() + ChatColor.RED + " withers and you are left with no produce! Use a hoe!");
+                b.setType(Material.AIR);
 
         }
 
