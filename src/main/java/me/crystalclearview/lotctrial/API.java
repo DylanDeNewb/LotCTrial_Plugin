@@ -12,10 +12,6 @@ public class API {
         this.plugin = plugin;
     }
 
-    public String colour(String m){
-        return ChatColor.translateAlternateColorCodes('&',m);
-    }
-
     public void toggleCTramp(Player p, String[] args){
 
         Configuration config = plugin.getConfig();
