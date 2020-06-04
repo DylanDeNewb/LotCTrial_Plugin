@@ -3,6 +3,7 @@ package me.crystalclearview.lotctrial.listeners;
 import me.crystalclearview.lotctrial.HarvestAmount;
 import me.crystalclearview.lotctrial.Main;
 import org.bukkit.ChatColor;
+import org.bukkit.CropState;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Crops;
 
 import java.util.Random;
 
@@ -30,6 +32,10 @@ public class HarvestEvent implements Listener {
     public void onCropBreak(BlockBreakEvent e){
 
         //Setting Variables For Easier Access.
+        ItemStack wheat = new ItemStack(Material.WHEAT);
+        ItemStack potato = new ItemStack(Material.POTATOES);
+        ItemStack carrot = new ItemStack(Material.CARROTS);
+        ItemStack beetroot = new ItemStack(Material.BEETROOTS);
         Player p = e.getPlayer();
         Block b = e.getBlock();
         Location location = b.getLocation();
@@ -39,6 +45,11 @@ public class HarvestEvent implements Listener {
         ItemStack dropseeds = new ItemStack(Material.AIR);
 
         if(b.getType() == Material.WHEAT_SEEDS || b.getType() == Material.BEETROOT_SEEDS || b.getType() == Material.CARROT || b.getType() == Material.POTATO){
+            return;
+        }
+
+        if(b.getState().getData() instanceof Crops && (!(((Crops) b.getState().getData()).getState() == CropState.RIPE))){
+            p.sendMessage(ChatColor.RED + "The " + ChatColor.GOLD + b.getType().toString().toLowerCase() + ChatColor.RED + " is not ready to be harvested! Be patient!");
             return;
         }
 

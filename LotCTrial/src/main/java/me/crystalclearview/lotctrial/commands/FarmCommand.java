@@ -2,13 +2,18 @@ package me.crystalclearview.lotctrial.commands;
 
 import me.crystalclearview.lotctrial.API;
 import me.crystalclearview.lotctrial.Main;
-import me.crystalclearview.lotctrial.guis.HoeCreation;
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+
+import java.util.ArrayList;
+
+import static org.bukkit.ChatColor.*;
+import static org.bukkit.Material.*;
 
 public class FarmCommand implements CommandExecutor {
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
@@ -16,7 +21,7 @@ public class FarmCommand implements CommandExecutor {
     public FarmCommand(Main plugin) {
         this.plugin = plugin;
     }
-
+    API api = new API(plugin);
 
 
     @Override
@@ -24,9 +29,14 @@ public class FarmCommand implements CommandExecutor {
 
         Player p = (Player) sender;
         Configuration config = plugin.getConfig();
-        API api = new API(plugin);
+
 
         if(cmd.getName().equalsIgnoreCase("farm")){
+
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Error: Player only command.");
+                return true;
+            }
 
             if(args.length > 0){
                 String s = args[0];
@@ -38,36 +48,77 @@ public class FarmCommand implements CommandExecutor {
                         break;
 
                     case "hoe":
-                        if (!(sender instanceof Player)) {
-                            sender.sendMessage("Error: Player only command.");
-                        }
+
                         if(!config.getBoolean("Modules.hoecreation")){
-                            p.sendMessage(ChatColor.RED + "This module is disabled!");
+                            p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "This module is disabled!");
                         }
 
                         if (p.hasPermission("farming.gui.hoe") || p.isOp()) {
 
-                            HoeCreation.openHoeMenu(p);
+                            Inventory craft = Bukkit.createInventory(null,36, GOLD + "" + BOLD + "Hoe Creation");
 
+                            api.addPlaceholderToGUI(craft, 0);
+                            api.addPlaceholderToGUI(craft, 9);
+                            api.addPlaceholderToGUI(craft, 18);
+                            api.addPlaceholderToGUI(craft, 27);
+                            api.addPlaceholderToGUI(craft, 8);
+                            api.addPlaceholderToGUI(craft, 17);
+                            api.addPlaceholderToGUI(craft, 26);
+                            api.addPlaceholderToGUI(craft, 35);
+
+                            ArrayList<String> rlore= new ArrayList<String>();
+                            rlore.add(GRAY + "- 2 Iron");
+                            rlore.add(GRAY + "- 2 Sticks");
+
+                            ArrayList<String> clore= new ArrayList<String>();
+                            clore.add(GRAY + "What does this hoe do? Give you a chance for surprises of course!");
+                            clore.add(GRAY + "Click to Craft!");
+
+                            ArrayList<String> elore= new ArrayList<String>();
+                            elore.add(GRAY + "Dont feel like getting a cool hoe?");
+                            elore.add(GRAY + "Click to close!");
+
+                            api.addItemToGUI(craft, PAPER,13, AQUA + "" + BOLD + "Recipe:", rlore);
+                            api.addItemToGUI(craft, GREEN_STAINED_GLASS_PANE,20, GREEN + "" + BOLD + "Craft", clore);
+                            api.addItemToGUI(craft, RED_STAINED_GLASS_PANE,24, RED + "" + BOLD + "Close", elore);
+
+                            p.openInventory(craft);
                         }
                         break;
                     case "admin":
                         if(!p.hasPermission("farming.admin")){
-                            p.sendMessage(ChatColor.RED + "Insufficient permissions!");
+                            p.sendMessage(RED + "Insufficient permissions!");
                         }
-                        p.sendMessage(ChatColor.AQUA + "-== Sub-commands for " + ChatColor.GRAY + "admin" + ChatColor.AQUA + " ==-");
-                        p.sendMessage(ChatColor.GOLD + "reload" + ChatColor.AQUA + ": " + ChatColor.GRAY + "Reload plugin config");
+                        if(args.length > 1){
+                            if(args[1].equalsIgnoreCase("reload")){
+                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Reloading config...");
+                                plugin.saveConfig();
+                                plugin.reloadConfig();
+                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Reloaded config!");
+                            }else if(args[1].equalsIgnoreCase("setprefix")){
+                                StringBuilder sb = new StringBuilder();
+                                for(int i=2; i < args.length; i++){
+                                    sb.append(args[i] + " ");
+                                }
+                                plugin.getConfig().set("Messages.prefix", sb.toString());
+                                plugin.saveConfig();
+                                plugin.reloadConfig();
+                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Prefix set!");
+                            }
+                        }else{
+                            p.sendMessage(AQUA + "-== Sub-commands for " + GRAY + "admin" + AQUA + " ==-");
+                            p.sendMessage(GOLD + "setprefix" + AQUA + ": " + GRAY + "Set plugin prefix");
+                            p.sendMessage(GOLD + "reload" + AQUA + ": " + GRAY + "Reload plugin config");
+                        }
                 }
             }else{
-                if(args.length > 1){
 
-                }
-                p.sendMessage(ChatColor.AQUA + "-== Sub-commands for " + ChatColor.GRAY + "/farm" + ChatColor.AQUA + " ==-");
-                p.sendMessage(ChatColor.GOLD + "hoe" + ChatColor.AQUA + ": " + ChatColor.GRAY + "Open up the Hoe Creation Menu");
-                p.sendMessage(ChatColor.GOLD + "croptrampling" + ChatColor.AQUA + ": " + ChatColor.GRAY + "Toggle Crop-Trampling locally");
-                p.sendMessage(ChatColor.GOLD + "admin" + ChatColor.AQUA + ": " + ChatColor.GRAY + "See admin commands");
+                p.sendMessage(AQUA + "-== Sub-commands for " + GRAY + "/farm" + AQUA + " ==-");
+                p.sendMessage(GOLD + "hoe" + AQUA + ": " + GRAY + "Open up the Hoe Creation Menu");
+                p.sendMessage(GOLD + "croptrampling" + AQUA + ": " + GRAY + "Toggle Crop-Trampling locally");
+                p.sendMessage(GOLD + "admin" + AQUA + ": " + GRAY + "See admin commands");
                 if(p.hasPermission("farming.croptrampling.others") || p.isOp()){
-                    p.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "You have the farming.croptrampling.others permission, \nMeaning you can toggle others' crop trampling by parsing player");
+                    p.sendMessage(DARK_GRAY + "" + ITALIC + "You have the farming.croptrampling.others permission, \nMeaning you can toggle others' crop trampling by parsing player");
                 }
 
             }

@@ -1,7 +1,7 @@
 package me.crystalclearview.lotctrial.listeners;
 
+import me.crystalclearview.lotctrial.API;
 import me.crystalclearview.lotctrial.Main;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +11,8 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import static org.bukkit.ChatColor.*;
+
 public class InventoryClickEvent implements Listener {
 
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
@@ -18,6 +20,7 @@ public class InventoryClickEvent implements Listener {
     public InventoryClickEvent(Main plugin) {
         this.plugin = plugin;
     }
+    API api = new API(plugin);
 
     @EventHandler
     public void inventoryClick(org.bukkit.event.inventory.InventoryClickEvent e){
@@ -25,16 +28,16 @@ public class InventoryClickEvent implements Listener {
         ItemStack item = e.getCurrentItem();
         Player p = (Player) e.getWhoClicked();
 
-        if(view.getTitle().equals(ChatColor.GOLD + "" + ChatColor.BOLD + "Hoe Creation")){
-            if(item.getType() == Material.GREEN_WOOL){
+        if(view.getTitle().equals(GOLD + "" + BOLD + "Hoe Creation")){
+            if(item.getType() == Material.GREEN_STAINED_GLASS_PANE){
                 ItemMeta itemm = item.getItemMeta();
-                if(itemm.getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "&b&2Craft"))){
+                if(itemm.getDisplayName().equals(GREEN + "" + BOLD + "Craft")){
                     if(p.getInventory().contains(Material.IRON_INGOT, 2)){
                         if(p.getInventory().contains(Material.STICK, 2)){
                             Inventory inv = p.getInventory();
                             ItemStack crafted = new ItemStack(Material.IRON_HOE);
                             ItemMeta craftedm = crafted.getItemMeta();
-                            craftedm.setDisplayName(ChatColor.GREEN + "Lucky Hoe");
+                            craftedm.setDisplayName(GREEN + "Lucky Hoe");
 
                             crafted.setItemMeta(craftedm);
 
@@ -44,19 +47,19 @@ public class InventoryClickEvent implements Listener {
                             inv.remove(Material.IRON_INGOT);
                             inv.addItem(crafted);
                         }else {
-                            p.sendMessage(ChatColor.RED + "You are missing some sticks!");
+                            p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some sticks!");
                         }
                     }else {
-                        p.sendMessage(ChatColor.RED + "You are missing some iron ingots!");
+                        p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some iron ingots!");
                     }
                     e.setCancelled(true);
                 }
             }
-            if(item.getType() == Material.RED_WOOL){
+            if(item.getType() == Material.RED_STAINED_GLASS_PANE){
                 ItemMeta rmeta = item.getItemMeta();
-                if(rmeta.getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "&b&4Close"))){
+                if(rmeta.getDisplayName().equals(RED + "" + BOLD + "Close")){
                     p.closeInventory();
-                    p.sendMessage(ChatColor.RED + "Hoe Creation GUI closed!");
+                    p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Hoe Creation GUI closed!");
                     e.setCancelled(true);
                 }
             }else{
