@@ -17,7 +17,7 @@ public class PlayerJoinEvent implements Listener {
     public void onJoin(org.bukkit.event.player.PlayerJoinEvent e){
         Player p = e.getPlayer();
         if(!p.hasPlayedBefore()){
-            plugin.getConfig().set(p.getName() + ".crop-trampling", false);
+            plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", false);
             plugin.saveConfig();
         }
     }

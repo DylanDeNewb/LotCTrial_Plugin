@@ -3,6 +3,7 @@ package me.crystalclearview.lotctrial.commands;
 import me.crystalclearview.lotctrial.API;
 import me.crystalclearview.lotctrial.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,7 +44,47 @@ public class FarmCommand implements CommandExecutor {
                 switch(s) {
                     case "croptrampling":
 
-                        api.toggleCTramp(p, args);
+                        if(args.length >1){
+                            Player target = Bukkit.getPlayer(args[1]);
+                            if (p.hasPermission("farming.croptrampling.others") || p.isOp()) {
+                                if(target == null){
+                                    p.sendMessage(ChatColor.RED + "Invalid player name!");
+                                }else{
+                                    if(!plugin.getConfig().getBoolean(target.getUniqueId() + ".crop-trampling")){
+                                        config.set(target.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
+                                        plugin.saveConfig();
+                                        plugin.reloadConfig();
+                                        p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED for " + target.getName());
+                                    }else if (plugin.getConfig().getBoolean(target.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
+                                        config.set(target.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
+                                        plugin.saveConfig();
+                                        plugin.reloadConfig();
+                                        p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED for " + target.getName());
+                                    }
+                                }
+
+                            }else {
+                                //Return message if the player doesn't have the right permission.
+                                p.sendMessage(ChatColor.RED + "Error:" + ChatColor.WHITE + " Insufficient Permissions");
+                            }
+
+                        }
+                        if (p.hasPermission("farming.croptrampling") || p.isOp()) {
+                            if (!plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling")) { //Checking if the Boolean is false
+                                plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
+                                plugin.saveConfig();
+                                plugin.reloadConfig();
+                                p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED");
+                            } else if (plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
+                                plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
+                                plugin.saveConfig();
+                                plugin.reloadConfig();
+                                p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED");
+                            }
+                        } else {
+                            //Return message if the player doesn't have the right permission.
+                            p.sendMessage(ChatColor.RED + "Error:" + ChatColor.WHITE + " Insufficient Permissions");
+                        }
 
                         break;
 

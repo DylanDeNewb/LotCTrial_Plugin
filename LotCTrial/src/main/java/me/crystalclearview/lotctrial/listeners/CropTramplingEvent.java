@@ -1,6 +1,7 @@
 package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -22,14 +23,16 @@ public class CropTramplingEvent implements Listener {
 
         Player p = e.getPlayer();
         Block b = e.getClickedBlock(); //Getting the farmland which has been jumped on.
-        boolean ct = plugin.getConfig().getBoolean(p.getName() + ".crop-trampling");
+        boolean ct = plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling");
 
         if(e.getAction() == Action.PHYSICAL){ //Seeing if the action was done with the players body.
             if(b.getType() == Material.FARMLAND){ //Seeing if the block is Farmland
-                if(!ct){
-                    e.setCancelled(true); //Stops the Farmland from being uprooted.
-                }else{
+                if(ct){
                     e.setCancelled(false);
+                    b.setType(Material.DIRT);
+                    p.sendMessage(ChatColor.RED + "You have uprooted some farmland! Please mind your step!");
+                }else{
+                    e.setCancelled(true); //Stops the Farmland from being uprooted.
                 }
 
             }
