@@ -9,10 +9,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class API {
+public class GuiAPI {
 
     public Main plugin;
-    public API(Main plugin) {
+    public GuiAPI(Main plugin) {
         this.plugin = plugin;
     }
 

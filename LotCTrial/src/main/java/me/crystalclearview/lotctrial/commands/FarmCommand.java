@@ -1,6 +1,6 @@
 package me.crystalclearview.lotctrial.commands;
 
-import me.crystalclearview.lotctrial.API;
+import me.crystalclearview.lotctrial.GuiAPI;
 import me.crystalclearview.lotctrial.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,22 +22,21 @@ public class FarmCommand implements CommandExecutor {
     public FarmCommand(Main plugin) {
         this.plugin = plugin;
     }
-    API api = new API(plugin);
+    GuiAPI guiApi = new GuiAPI(plugin);
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        if (!(sender instanceof Player)) {
+            Bukkit.getConsoleSender().sendMessage(RED + "Error: Player only command.");
+            return true;
+        }
+
         Player p = (Player) sender;
         Configuration config = plugin.getConfig();
 
-
         if(cmd.getName().equalsIgnoreCase("farm")){
-
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("Error: Player only command.");
-                return true;
-            }
 
             if(args.length > 0){
                 String s = args[0];
@@ -91,21 +90,21 @@ public class FarmCommand implements CommandExecutor {
                     case "hoe":
 
                         if(!config.getBoolean("Modules.hoecreation")){
-                            p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "This module is disabled!");
+                            p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "This module is disabled!");
                         }
 
                         if (p.hasPermission("farming.gui.hoe") || p.isOp()) {
 
                             Inventory craft = Bukkit.createInventory(null,36, GOLD + "" + BOLD + "Hoe Creation");
 
-                            api.addPlaceholderToGUI(craft, 0);
-                            api.addPlaceholderToGUI(craft, 9);
-                            api.addPlaceholderToGUI(craft, 18);
-                            api.addPlaceholderToGUI(craft, 27);
-                            api.addPlaceholderToGUI(craft, 8);
-                            api.addPlaceholderToGUI(craft, 17);
-                            api.addPlaceholderToGUI(craft, 26);
-                            api.addPlaceholderToGUI(craft, 35);
+                            guiApi.addPlaceholderToGUI(craft, 0);
+                            guiApi.addPlaceholderToGUI(craft, 9);
+                            guiApi.addPlaceholderToGUI(craft, 18);
+                            guiApi.addPlaceholderToGUI(craft, 27);
+                            guiApi.addPlaceholderToGUI(craft, 8);
+                            guiApi.addPlaceholderToGUI(craft, 17);
+                            guiApi.addPlaceholderToGUI(craft, 26);
+                            guiApi.addPlaceholderToGUI(craft, 35);
 
                             ArrayList<String> rlore= new ArrayList<String>();
                             rlore.add(GRAY + "- 2 Iron");
@@ -119,9 +118,9 @@ public class FarmCommand implements CommandExecutor {
                             elore.add(GRAY + "Dont feel like getting a cool hoe?");
                             elore.add(GRAY + "Click to close!");
 
-                            api.addItemToGUI(craft, PAPER,13, AQUA + "" + BOLD + "Recipe:", rlore);
-                            api.addItemToGUI(craft, GREEN_STAINED_GLASS_PANE,20, GREEN + "" + BOLD + "Craft", clore);
-                            api.addItemToGUI(craft, RED_STAINED_GLASS_PANE,24, RED + "" + BOLD + "Close", elore);
+                            guiApi.addItemToGUI(craft, PAPER,13, AQUA + "" + BOLD + "Recipe:", rlore);
+                            guiApi.addItemToGUI(craft, GREEN_STAINED_GLASS_PANE,20, GREEN + "" + BOLD + "Craft", clore);
+                            guiApi.addItemToGUI(craft, RED_STAINED_GLASS_PANE,24, RED + "" + BOLD + "Close", elore);
 
                             p.openInventory(craft);
                         }
@@ -132,10 +131,10 @@ public class FarmCommand implements CommandExecutor {
                         }
                         if(args.length > 1){
                             if(args[1].equalsIgnoreCase("reload")){
-                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Reloading config...");
+                                p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Reloading config...");
                                 plugin.saveConfig();
                                 plugin.reloadConfig();
-                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Reloaded config!");
+                                p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Reloaded config!");
                             }else if(args[1].equalsIgnoreCase("setprefix")){
                                 StringBuilder sb = new StringBuilder();
                                 for(int i=2; i < args.length; i++){
@@ -144,7 +143,7 @@ public class FarmCommand implements CommandExecutor {
                                 plugin.getConfig().set("Messages.prefix", sb.toString());
                                 plugin.saveConfig();
                                 plugin.reloadConfig();
-                                p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Prefix set!");
+                                p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + GREEN + "Prefix set!");
                             }
                         }else{
                             p.sendMessage(AQUA + "-== Sub-commands for " + GRAY + "admin" + AQUA + " ==-");

@@ -27,12 +27,10 @@ public class CropTramplingEvent implements Listener {
 
         if(e.getAction() == Action.PHYSICAL){ //Seeing if the action was done with the players body.
             if(b.getType() == Material.FARMLAND){ //Seeing if the block is Farmland
+                e.setCancelled(true);//Stops the Farmland from being uprooted.
                 if(ct){
-                    e.setCancelled(false);
                     b.setType(Material.DIRT);
                     p.sendMessage(ChatColor.RED + "You have uprooted some farmland! Please mind your step!");
-                }else{
-                    e.setCancelled(true); //Stops the Farmland from being uprooted.
                 }
 
             }

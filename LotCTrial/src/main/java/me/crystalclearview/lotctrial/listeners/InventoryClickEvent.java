@@ -1,6 +1,6 @@
 package me.crystalclearview.lotctrial.listeners;
 
-import me.crystalclearview.lotctrial.API;
+import me.crystalclearview.lotctrial.GuiAPI;
 import me.crystalclearview.lotctrial.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class InventoryClickEvent implements Listener {
     public InventoryClickEvent(Main plugin) {
         this.plugin = plugin;
     }
-    API api = new API(plugin);
+    GuiAPI guiApi = new GuiAPI(plugin);
 
     @EventHandler
     public void inventoryClick(org.bukkit.event.inventory.InventoryClickEvent e){
@@ -47,10 +47,10 @@ public class InventoryClickEvent implements Listener {
                             inv.remove(Material.IRON_INGOT);
                             inv.addItem(crafted);
                         }else {
-                            p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some sticks!");
+                            p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some sticks!");
                         }
                     }else {
-                        p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some iron ingots!");
+                        p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "You are missing some iron ingots!");
                     }
                     e.setCancelled(true);
                 }
@@ -59,7 +59,7 @@ public class InventoryClickEvent implements Listener {
                 ItemMeta rmeta = item.getItemMeta();
                 if(rmeta.getDisplayName().equals(RED + "" + BOLD + "Close")){
                     p.closeInventory();
-                    p.sendMessage(api.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Hoe Creation GUI closed!");
+                    p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Hoe Creation GUI closed!");
                     e.setCancelled(true);
                 }
             }else{
