@@ -2,10 +2,7 @@ package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.HarvestAmount;
 import me.crystalclearview.lotctrial.LotCTrial;
-import org.bukkit.ChatColor;
-import org.bukkit.CropState;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -39,6 +36,7 @@ public class HarvestListener implements Listener {
         ItemStack beetroot = new ItemStack(Material.BEETROOTS);
         Player p = e.getPlayer();
         Block b = e.getBlock();
+        World w = b.getWorld();
         Location location = b.getLocation();
         ItemStack tool = p.getInventory().getItemInMainHand();
         int dropamount = 0;
@@ -91,8 +89,8 @@ public class HarvestListener implements Listener {
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.stonewoodhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.stonewoodhoe.getSeed()); //Using enums from "HarvestAmount"
-            b.getWorld().dropItemNaturally(location, dropcrop);
-            b.getWorld().dropItemNaturally(location, dropseeds);
+            w.dropItemNaturally(location, dropcrop);
+            w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
             ItemMeta meta = tool.getItemMeta();
             if (meta instanceof Damageable){
@@ -121,8 +119,8 @@ public class HarvestListener implements Listener {
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.irongoldhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.irongoldhoe.getSeed()); //Using enums from "HarvestAmount"
-            b.getWorld().dropItemNaturally(location, dropcrop);
-            b.getWorld().dropItemNaturally(location, dropseeds);
+            w.dropItemNaturally(location, dropcrop);
+            w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
             ItemMeta meta = tool.getItemMeta();
             if (meta instanceof Damageable){
@@ -160,8 +158,8 @@ public class HarvestListener implements Listener {
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.diamondhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.diamondhoe.getSeed()); //Using enums from "HarvestAmount"
-            b.getWorld().dropItemNaturally(location, dropcrop);
-            b.getWorld().dropItemNaturally(location, dropseeds);
+            w.dropItemNaturally(location, dropcrop);
+            w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
             ItemMeta meta = tool.getItemMeta();
             if (meta instanceof Damageable){
