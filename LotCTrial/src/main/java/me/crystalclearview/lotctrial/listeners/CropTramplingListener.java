@@ -1,6 +1,6 @@
 package me.crystalclearview.lotctrial.listeners;
 
-import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,15 +10,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class CropTramplingEvent implements Listener {
+public class CropTramplingListener implements Listener {
 
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
-    public Main plugin;
-    public CropTramplingEvent(Main plugin) {
+    public LotCTrial plugin;
+    public CropTramplingListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInteractEvent(PlayerInteractEvent e) {
 
         Player p = e.getPlayer();

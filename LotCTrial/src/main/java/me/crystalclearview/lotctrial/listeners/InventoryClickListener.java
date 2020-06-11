@@ -1,7 +1,7 @@
 package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.GuiAPI;
-import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,11 +13,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import static org.bukkit.ChatColor.*;
 
-public class InventoryClickEvent implements Listener {
+public class InventoryClickListener implements Listener {
 
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
-    public Main plugin;
-    public InventoryClickEvent(Main plugin) {
+    public LotCTrial plugin;
+    public InventoryClickListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
     GuiAPI guiApi = new GuiAPI(plugin);

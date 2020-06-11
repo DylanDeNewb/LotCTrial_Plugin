@@ -1,7 +1,7 @@
 package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.HarvestAmount;
-import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.ChatColor;
 import org.bukkit.CropState;
 import org.bukkit.Location;
@@ -19,10 +19,10 @@ import org.bukkit.material.Crops;
 
 import java.util.Random;
 
-public class HarvestEvent implements Listener {
+public class HarvestListener implements Listener {
 
-    public Main plugin;
-    public HarvestEvent(Main plugin) {
+    public LotCTrial plugin;
+    public HarvestListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
 
@@ -44,7 +44,7 @@ public class HarvestEvent implements Listener {
         ItemStack dropcrop = new ItemStack(Material.AIR);
         ItemStack dropseeds = new ItemStack(Material.AIR);
 
-        if(b.getType() == Material.WHEAT_SEEDS || b.getType() == Material.BEETROOT_SEEDS || b.getType() == Material.CARROT || b.getType() == Material.POTATO){
+        if(!(b.getType() == Material.WHEAT) || b.getType() == Material.BEETROOTS || b.getType() == Material.CARROTS || b.getType() == Material.POTATOES){
             return;
         }
 
@@ -92,6 +92,14 @@ public class HarvestEvent implements Listener {
             p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
         }
         else if(tool.getType() == Material.IRON_HOE || tool.getType() == Material.GOLDEN_HOE){
+
+            Random rand = new Random();
+            int seedvalue = rand.nextInt(3);
+            if(seedvalue == 0){
+                seedvalue++;
+            }
+            HarvestAmount.irongoldhoe.setSeed(seedvalue);
+
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.irongoldhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.irongoldhoe.getSeed()); //Using enums from "HarvestAmount"
@@ -116,6 +124,14 @@ public class HarvestEvent implements Listener {
             }
         }
         else if(tool.getType() == Material.DIAMOND_HOE){
+
+            Random rand = new Random();
+            int seedvalue = rand.nextInt(4);
+            if(seedvalue == 0){
+                seedvalue++;
+            }
+            HarvestAmount.diamondhoe.setSeed(seedvalue);
+
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.diamondhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.diamondhoe.getSeed()); //Using enums from "HarvestAmount"

@@ -3,6 +3,9 @@ description: LotCTrial plugin, Overhaul of farming.
 version: 1.1.0
 author: DylanDeNewb
 api-version: 1.15
-main: me.crystalclearview.lotctrial.Main
+main: me.crystalclearview.lotctrial.LotCTrial
 commands:
   farm:
+    usage: "/<command> [croptrampling|hoe|admin]"
+    aliases: [f, harvest]
+    description: "Base command for Farming Plugin!"

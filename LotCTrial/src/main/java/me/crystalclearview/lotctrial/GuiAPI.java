@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class GuiAPI {
 
-    public Main plugin;
-    public GuiAPI(Main plugin) {
+    public LotCTrial plugin;
+    public GuiAPI(LotCTrial plugin) {
         this.plugin = plugin;
     }
 

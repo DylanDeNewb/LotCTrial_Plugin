@@ -1,15 +1,15 @@
 package me.crystalclearview.lotctrial.listeners;
 
-import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class PlayerJoinEvent implements Listener {
+public class PlayerJoinListener implements Listener {
 
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
-    public Main plugin;
-    public PlayerJoinEvent(Main plugin) {
+    public LotCTrial plugin;
+    public PlayerJoinListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
 

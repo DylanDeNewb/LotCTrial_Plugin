@@ -1,7 +1,7 @@
 package me.crystalclearview.lotctrial.commands;
 
 import me.crystalclearview.lotctrial.GuiAPI;
-import me.crystalclearview.lotctrial.Main;
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,8 +18,8 @@ import static org.bukkit.Material.*;
 
 public class FarmCommand implements CommandExecutor {
     //Linking class to the Main plugin, gives access to methods such as plugin.getConfig() due to the getter and setter.
-    public Main plugin;
-    public FarmCommand(Main plugin) {
+    public LotCTrial plugin;
+    public FarmCommand(LotCTrial plugin) {
         this.plugin = plugin;
     }
     GuiAPI guiApi = new GuiAPI(plugin);
@@ -68,7 +68,7 @@ public class FarmCommand implements CommandExecutor {
                             }
 
                         }
-                        if (p.hasPermission("farming.croptrampling") || p.isOp()) {
+                        else if (p.hasPermission("farming.croptrampling") || p.isOp()) {
                             if (!plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling")) { //Checking if the Boolean is false
                                 plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
                                 plugin.saveConfig();

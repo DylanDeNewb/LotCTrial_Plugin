@@ -1,16 +1,13 @@
 package me.crystalclearview.lotctrial;
 
 import me.crystalclearview.lotctrial.commands.FarmCommand;
-import me.crystalclearview.lotctrial.listeners.CircumventPreventionEvent;
-import me.crystalclearview.lotctrial.listeners.CropTramplingEvent;
-import me.crystalclearview.lotctrial.listeners.HarvestEvent;
-import me.crystalclearview.lotctrial.listeners.InventoryClickEvent;
+import me.crystalclearview.lotctrial.listeners.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+public class LotCTrial extends JavaPlugin {
 
 
     @Override
@@ -27,10 +24,11 @@ public class Main extends JavaPlugin {
         //Registering Commands&Events.
         PluginManager pm = Bukkit.getPluginManager();
 
-        pm.registerEvents(new HarvestEvent(this), this);
-        pm.registerEvents(new CropTramplingEvent(this), this);
-        pm.registerEvents(new CircumventPreventionEvent(this), this);
-        pm.registerEvents(new InventoryClickEvent(this), this);
+        pm.registerEvents(new HarvestListener(this), this);
+        pm.registerEvents(new CropTramplingListener(this), this);
+        pm.registerEvents(new CircumventPreventionListener(this), this);
+        pm.registerEvents(new InventoryClickListener(this), this);
+        pm.registerEvents(new ExplosionListener(this), this);
 
         this.getCommand("farm").setExecutor(new FarmCommand(this));
     }
@@ -42,7 +40,7 @@ public class Main extends JavaPlugin {
     public static JavaPlugin plugin;
 
     public void setPlugin(Plugin plugin) {
-        Main.plugin = (JavaPlugin) plugin;
+        LotCTrial.plugin = (JavaPlugin) plugin;
     }
 
     public static JavaPlugin getPlugin() {

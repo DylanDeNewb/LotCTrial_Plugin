@@ -24,5 +24,6 @@ public enum HarvestAmount {
     public int getSeed(){
         return seed;
     } //Method to get the amount of Seed.
+    public void setSeed(int seed) { this.seed = seed; } //Method to set the amount of Seed.
 
 }
