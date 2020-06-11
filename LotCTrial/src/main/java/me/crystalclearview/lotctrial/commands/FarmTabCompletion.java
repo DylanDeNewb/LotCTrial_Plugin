@@ -19,7 +19,7 @@ public class FarmTabCompletion implements TabCompleter {
             one.add("admin");
         }
         if(args.length == 2){
-            if(args[1].equalsIgnoreCase("admin")){
+            if(args[0].equalsIgnoreCase("admin")){
                 one.add("setprefix");
                 one.add("reload");
             }
