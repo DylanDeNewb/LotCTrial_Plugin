@@ -19,14 +19,15 @@ import org.bukkit.material.Crops;
 
 import java.util.Random;
 
+import static org.bukkit.ChatColor.BOLD;
+import static org.bukkit.ChatColor.GREEN;
+
 public class HarvestListener implements Listener {
 
     public LotCTrial plugin;
     public HarvestListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
-
-
 
     @EventHandler
     public void onCropBreak(BlockBreakEvent e){
@@ -77,6 +78,16 @@ public class HarvestListener implements Listener {
 
         //Dropping seed and crop + Fortune bonus for breaking with a wooden hoe or stone hoe,
         else if(tool.getType() == Material.WOODEN_HOE || tool.getType() == Material.STONE_HOE){
+
+            Random rand = new Random();
+
+            int moneyvalue = rand.nextInt(26);
+            if(moneyvalue == 0){
+                moneyvalue++;
+            }
+            plugin.eco.depositPlayer(p, moneyvalue);
+            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.stonewoodhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.stonewoodhoe.getSeed()); //Using enums from "HarvestAmount"
@@ -100,6 +111,13 @@ public class HarvestListener implements Listener {
             }
             HarvestAmount.irongoldhoe.setSeed(seedvalue);
 
+            int moneyvalue = rand.nextInt(51);
+            if(moneyvalue == 0){
+                moneyvalue++;
+            }
+            plugin.eco.depositPlayer(p, moneyvalue);
+            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.irongoldhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.irongoldhoe.getSeed()); //Using enums from "HarvestAmount"
@@ -108,7 +126,7 @@ public class HarvestListener implements Listener {
             b.setType(Material.AIR);
             ItemMeta meta = tool.getItemMeta();
             if (meta instanceof Damageable){
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 1);
+                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
             }
             tool.setItemMeta(meta);
 
@@ -132,6 +150,13 @@ public class HarvestListener implements Listener {
             }
             HarvestAmount.diamondhoe.setSeed(seedvalue);
 
+            int moneyvalue = rand.nextInt(101);
+            if(moneyvalue == 0){
+                moneyvalue++;
+            }
+            plugin.eco.depositPlayer(p, moneyvalue);
+            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.diamondhoe.getCrop()); //Using enums from "HarvestAmount"
             dropseeds.setAmount(dropamount + HarvestAmount.diamondhoe.getSeed()); //Using enums from "HarvestAmount"
@@ -140,8 +165,9 @@ public class HarvestListener implements Listener {
             b.setType(Material.AIR);
             ItemMeta meta = tool.getItemMeta();
             if (meta instanceof Damageable){
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 1);
+                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
             }
+            tool.setItemMeta(meta);
             tool.setItemMeta(meta);
 
             p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
