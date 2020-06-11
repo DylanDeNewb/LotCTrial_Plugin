@@ -1,6 +1,7 @@
 package me.crystalclearview.lotctrial;
 
 import me.crystalclearview.lotctrial.commands.FarmCommand;
+import me.crystalclearview.lotctrial.commands.FarmTabCompletion;
 import me.crystalclearview.lotctrial.listeners.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -36,6 +37,7 @@ public class LotCTrial extends JavaPlugin {
         pm.registerEvents(new ExplosionListener(this), this);
 
         this.getCommand("farm").setExecutor(new FarmCommand(this));
+        this.getCommand("farm").setTabCompleter(new FarmTabCompletion());
     }
     public void onDisable(){
         getLogger().info("LotCTrial Plugin Disabled!");
