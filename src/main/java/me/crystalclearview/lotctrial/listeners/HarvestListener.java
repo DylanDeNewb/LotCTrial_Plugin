@@ -98,11 +98,16 @@ public class HarvestListener implements Listener {
             w.dropItemNaturally(location, dropcrop);
             w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
-            ItemMeta meta = tool.getItemMeta();
+            Damageable meta = (Damageable) tool.getItemMeta();
             if (meta instanceof Damageable){
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+                if(tool.getType().getMaxDurability() == meta.getDamage()){
+                    p.getInventory().remove(tool);
+                    p.playSound(location, Sound.ENTITY_ITEM_BREAK, 2F, 1F);
+                }
+
+                meta.setDamage(meta.getDamage() + 1);
             }
-            tool.setItemMeta(meta);
+            tool.setItemMeta((ItemMeta) meta);
 
             mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
         }
@@ -130,15 +135,21 @@ public class HarvestListener implements Listener {
             w.dropItemNaturally(location, dropcrop);
             w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
-            ItemMeta meta = tool.getItemMeta();
+            Damageable meta = (Damageable) tool.getItemMeta();
+
             if (meta instanceof Damageable){
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+                if(tool.getType().getMaxDurability() == meta.getDamage()){
+                    p.getInventory().remove(tool);
+                    p.playSound(location, Sound.ENTITY_ITEM_BREAK, 2F, 1F);
+                }
+
+                meta.setDamage(meta.getDamage() + 1);
             }
-            tool.setItemMeta(meta);
+            tool.setItemMeta((ItemMeta) meta);
 
             mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
 
-            if(meta.getDisplayName().equals(ChatColor.GREEN + "Lucky Hoe")) {
+            if(((ItemMeta) meta).getDisplayName().equals(ChatColor.GREEN + "Lucky Hoe")) {
                 Random random = new Random();
                 double chance = random.nextDouble();
                 if (chance <= 0.25) {
@@ -171,12 +182,16 @@ public class HarvestListener implements Listener {
             w.dropItemNaturally(location, dropcrop);
             w.dropItemNaturally(location, dropseeds);
             b.setType(Material.AIR);
-            ItemMeta meta = tool.getItemMeta();
+            Damageable meta = (Damageable) tool.getItemMeta();
             if (meta instanceof Damageable){
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+                if(tool.getType().getMaxDurability() == meta.getDamage()){
+                    p.getInventory().remove(tool);
+                    p.playSound(location, Sound.ENTITY_ITEM_BREAK, 2F, 1F);
+                }
+
+                meta.setDamage(meta.getDamage() + 1);
             }
-            tool.setItemMeta(meta);
-            tool.setItemMeta(meta);
+            tool.setItemMeta((ItemMeta) meta);
 
             mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
         }else {
