@@ -1,6 +1,6 @@
 package me.crystalclearview.lotctrial.commands;
 
-import me.crystalclearview.lotctrial.GuiAPI;
+import me.crystalclearview.lotctrial.apis.GuiAPI;
 import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -166,6 +166,6 @@ public class FarmCommand implements CommandExecutor {
 
         }
 
-        return false;
+        return true;
     }
 }

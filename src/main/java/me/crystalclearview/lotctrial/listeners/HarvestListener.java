@@ -2,6 +2,7 @@ package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.HarvestAmount;
 import me.crystalclearview.lotctrial.LotCTrial;
+import me.crystalclearview.lotctrial.apis.MessageAPI;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -25,6 +26,8 @@ public class HarvestListener implements Listener {
     public HarvestListener(LotCTrial plugin) {
         this.plugin = plugin;
     }
+
+    MessageAPI mapi = new MessageAPI();
 
     @EventHandler
     public void onCropBreak(BlockBreakEvent e){
@@ -83,8 +86,11 @@ public class HarvestListener implements Listener {
             if(moneyvalue == 0){
                 moneyvalue++;
             }
-            plugin.eco.depositPlayer(p, moneyvalue);
-            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+
+            if(plugin.eco != null){
+                plugin.eco.depositPlayer(p, moneyvalue);
+                p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+            }
 
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.stonewoodhoe.getCrop()); //Using enums from "HarvestAmount"
@@ -98,7 +104,7 @@ public class HarvestListener implements Listener {
             }
             tool.setItemMeta(meta);
 
-            p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
+            mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
         }
         else if(tool.getType() == Material.IRON_HOE || tool.getType() == Material.GOLDEN_HOE){
 
@@ -113,8 +119,10 @@ public class HarvestListener implements Listener {
             if(moneyvalue == 0){
                 moneyvalue++;
             }
-            plugin.eco.depositPlayer(p, moneyvalue);
-            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+            if(plugin.eco != null){
+                plugin.eco.depositPlayer(p, moneyvalue);
+                p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+            }
 
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.irongoldhoe.getCrop()); //Using enums from "HarvestAmount"
@@ -128,7 +136,7 @@ public class HarvestListener implements Listener {
             }
             tool.setItemMeta(meta);
 
-            p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
+            mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
 
             if(meta.getDisplayName().equals(ChatColor.GREEN + "Lucky Hoe")) {
                 Random random = new Random();
@@ -152,8 +160,10 @@ public class HarvestListener implements Listener {
             if(moneyvalue == 0){
                 moneyvalue++;
             }
-            plugin.eco.depositPlayer(p, moneyvalue);
-            p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+            if(plugin.eco != null){
+                plugin.eco.depositPlayer(p, moneyvalue);
+                p.sendMessage(GREEN + "" + BOLD + "+" + moneyvalue);
+            }
 
             e.setCancelled(true);
             dropcrop.setAmount(dropamount + HarvestAmount.diamondhoe.getCrop()); //Using enums from "HarvestAmount"
@@ -168,7 +178,7 @@ public class HarvestListener implements Listener {
             tool.setItemMeta(meta);
             tool.setItemMeta(meta);
 
-            p.sendMessage(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!");
+            mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
         }else {
             //If crop is broke with your fist It will drop nothing and send a message.
             if(b.getType() == Material.WHEAT || b.getType() == Material.BEETROOTS || b.getType() == Material.CARROTS || b.getType() == Material.POTATOES || b.getType() == Material.WHEAT_SEEDS || b.getType() == Material.BEETROOT_SEEDS || b.getType() == Material.CARROT || b.getType() == Material.POTATO){

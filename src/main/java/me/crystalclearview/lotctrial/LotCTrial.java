@@ -5,7 +5,6 @@ import me.crystalclearview.lotctrial.commands.FarmTabCompletion;
 import me.crystalclearview.lotctrial.listeners.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,15 +17,13 @@ public class LotCTrial extends JavaPlugin {
     public void onEnable() {
 
         if(!setupEco()){
-            getLogger().warning("Vault not found! Disabling money surprises!");
-            return;
+            getLogger().warning("Vault Economy plugin not found! Disabling money surprises!");
         }else{
-            getLogger().info("Vault found! Enabling money surprises!");
+            getLogger().info("Vault Economy plugin found! Enabling money surprises!");
         }
         //Loading the config
         getConfig().options().copyDefaults(true);
         saveConfig();
-        plugin = this;
         //Registering Commands&Events.
         PluginManager pm = Bukkit.getPluginManager();
 
@@ -44,20 +41,18 @@ public class LotCTrial extends JavaPlugin {
     }
 
     private boolean setupEco(){
-        RegisteredServiceProvider<Economy> economy = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-        if(economy != null){
-            eco = economy.getProvider();
+        if(Bukkit.getPluginManager().getPlugin("Vault") != null){
+            RegisteredServiceProvider<Economy> economy = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+
+            if(economy != null){
+                eco = economy.getProvider();
+            }
+            return(eco != null);
+        }else{
+            return false;
         }
-        return(eco != null);
-    }
-    //Creating a static method to be able to access plugin in any class. (Getter and Setter)
-    public static JavaPlugin plugin;
 
-    public void setPlugin(Plugin plugin) {
-        LotCTrial.plugin = (JavaPlugin) plugin;
+
     }
 
-    public static JavaPlugin getPlugin() {
-        return plugin;
-    }
 }

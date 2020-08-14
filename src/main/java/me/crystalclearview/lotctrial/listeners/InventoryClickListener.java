@@ -1,6 +1,6 @@
 package me.crystalclearview.lotctrial.listeners;
 
-import me.crystalclearview.lotctrial.GuiAPI;
+import me.crystalclearview.lotctrial.apis.GuiAPI;
 import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

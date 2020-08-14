@@ -1,8 +1,8 @@
-package me.crystalclearview.lotctrial;
+package me.crystalclearview.lotctrial.apis;
 
+import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,10 +20,6 @@ public class GuiAPI {
         return ChatColor.translateAlternateColorCodes('&',m);
     }
 
-    public void toggleCTramp(Player p, String[] args){
-
-
-    }
     public void addItemToGUI(Inventory inv, Material material, int slot, String name, ArrayList<String> lore){
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
