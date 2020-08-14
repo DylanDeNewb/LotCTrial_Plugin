@@ -1,8 +1,10 @@
 package me.crystalclearview.lotctrial.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,11 @@ public class FarmTabCompletion implements TabCompleter {
             if(args[0].equalsIgnoreCase("admin")){
                 one.add("setprefix");
                 one.add("reload");
+            }
+            if(args[0].equalsIgnoreCase("croptrampling")){
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    one.add(p.getName());
+                }
             }
         }
 
