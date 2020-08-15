@@ -62,7 +62,8 @@ public class InventoryClickListener implements Listener {
                     p.sendMessage(guiApi.colour(plugin.getConfig().getString("Messages.prefix")) + RED + "Hoe Creation GUI closed!");
                     e.setCancelled(true);
                 }
-            }else{
+            }
+            if(item.getType() == Material.AIR){
                 e.setCancelled(true);
             }
         }

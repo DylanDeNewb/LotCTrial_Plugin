@@ -4,6 +4,7 @@ import me.crystalclearview.lotctrial.apis.GuiAPI;
 import me.crystalclearview.lotctrial.LotCTrial;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,13 +50,13 @@ public class FarmCommand implements CommandExecutor {
                                 if(target == null){
                                     p.sendMessage(ChatColor.RED + "Invalid player name!");
                                 }else{
-                                    if(!plugin.getConfig().getBoolean(target.getUniqueId() + ".crop-trampling")){
-                                        config.set(target.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
+                                    if(!plugin.getConfig().getBoolean("CTramp." + target.getUniqueId() + ".crop-trampling")){
+                                        config.set("CTramp." + target.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
                                         plugin.saveConfig();
                                         plugin.reloadConfig();
                                         p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED for " + target.getName());
-                                    }else if (plugin.getConfig().getBoolean(target.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
-                                        config.set(target.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
+                                    }else if (plugin.getConfig().getBoolean("CTramp." + target.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
+                                        config.set("CTramp." + target.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
                                         plugin.saveConfig();
                                         plugin.reloadConfig();
                                         p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED for " + target.getName());
@@ -69,13 +70,13 @@ public class FarmCommand implements CommandExecutor {
 
                         }
                         else if (p.hasPermission("farming.croptrampling") || p.isOp()) {
-                            if (!plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling")) { //Checking if the Boolean is false
-                                plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
+                            if (!plugin.getConfig().getBoolean("CTramp." + p.getUniqueId() + ".crop-trampling")) { //Checking if the Boolean is false
+                                plugin.getConfig().set("CTramp." + p.getUniqueId() + ".crop-trampling", true); //Changing the Boolean to be true
                                 plugin.saveConfig();
                                 plugin.reloadConfig();
                                 p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.GREEN + "" + ChatColor.BOLD + "ENABLED");
-                            } else if (plugin.getConfig().getBoolean(p.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
-                                plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
+                            } else if (plugin.getConfig().getBoolean("CTramp." + p.getUniqueId() + ".crop-trampling")) { //Checking if the String is true
+                                plugin.getConfig().set("CTramp." + p.getUniqueId() + ".crop-trampling", false); //Changing the boolean to be false
                                 plugin.saveConfig();
                                 plugin.reloadConfig();
                                 p.sendMessage(ChatColor.GOLD + "Crop-Trampling has been " + ChatColor.RED + "" + ChatColor.BOLD + "DISABLED");
@@ -122,6 +123,7 @@ public class FarmCommand implements CommandExecutor {
                             guiApi.addItemToGUI(craft, GREEN_STAINED_GLASS_PANE,20, GREEN + "" + BOLD + "Craft", clore);
                             guiApi.addItemToGUI(craft, RED_STAINED_GLASS_PANE,24, RED + "" + BOLD + "Close", elore);
 
+                            p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 2F, 1F);
                             p.openInventory(craft);
                         }
                         break;

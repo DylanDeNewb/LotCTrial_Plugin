@@ -1,9 +1,11 @@
 package me.crystalclearview.lotctrial.listeners;
 
 import me.crystalclearview.lotctrial.LotCTrial;
+import me.crystalclearview.lotctrial.levelling.PlayerLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinListener implements Listener {
 
@@ -14,11 +16,20 @@ public class PlayerJoinListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(org.bukkit.event.player.PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
         if(!p.hasPlayedBefore()){
-            plugin.getConfig().set(p.getUniqueId() + ".crop-trampling", false);
+            plugin.levelManager.put(p.getUniqueId(), new PlayerLevel(0, 0));
+            plugin.getConfig().set("FarmLevels." + p.getUniqueId() + ".level", 0);
+            plugin.getConfig().set("FarmLevels." + p.getUniqueId() + ".xp", 0);
+
             plugin.saveConfig();
+            plugin.reloadConfig();
+        }else{
+            int level = plugin.getConfig().getInt("FarmLevels." + p.getUniqueId() + ".level");
+            int xp = plugin.getConfig().getInt("FarmLevels." + p.getUniqueId() + ".xp");
+
+            plugin.levelManager.put(p.getUniqueId(), new PlayerLevel(level, xp));
         }
     }
 }

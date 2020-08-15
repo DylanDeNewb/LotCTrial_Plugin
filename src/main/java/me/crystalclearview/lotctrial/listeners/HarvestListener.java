@@ -3,6 +3,8 @@ package me.crystalclearview.lotctrial.listeners;
 import me.crystalclearview.lotctrial.HarvestAmount;
 import me.crystalclearview.lotctrial.LotCTrial;
 import me.crystalclearview.lotctrial.apis.MessageAPI;
+import me.crystalclearview.lotctrial.levelling.PlayerLevel;
+import me.crystalclearview.lotctrial.levelling.XPCheck;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -28,6 +30,7 @@ public class HarvestListener implements Listener {
     }
 
     MessageAPI mapi = new MessageAPI();
+    XPCheck xpapi = new XPCheck(plugin);
 
     @EventHandler
     public void onCropBreak(BlockBreakEvent e){
@@ -45,6 +48,7 @@ public class HarvestListener implements Listener {
         int dropamount = 0;
         ItemStack dropcrop = new ItemStack(Material.AIR);
         ItemStack dropseeds = new ItemStack(Material.AIR);
+        PlayerLevel levelManager = plugin.levelManager.get(p.getUniqueId());
 
         if(!(b.getType() == Material.WHEAT) || b.getType() == Material.BEETROOTS || b.getType() == Material.CARROTS || b.getType() == Material.POTATOES){
             return;
@@ -110,6 +114,11 @@ public class HarvestListener implements Listener {
             tool.setItemMeta((ItemMeta) meta);
 
             mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
+
+            levelManager.setXp(levelManager.getXp() + 10);
+            plugin.saveConfig();
+            plugin.reloadConfig();
+            xpapi.xpCheck(p, levelManager);
         }
         else if(tool.getType() == Material.IRON_HOE || tool.getType() == Material.GOLDEN_HOE){
 
@@ -157,6 +166,11 @@ public class HarvestListener implements Listener {
                     p.getInventory().addItem(new ItemStack(Material.WHEAT, 2));
                 }
             }
+
+            levelManager.setXp(levelManager.getXp() + 10);
+            plugin.saveConfig();
+            plugin.reloadConfig();
+            xpapi.xpCheck(p, levelManager);
         }
         else if(tool.getType() == Material.DIAMOND_HOE){
 
@@ -194,6 +208,11 @@ public class HarvestListener implements Listener {
             tool.setItemMeta((ItemMeta) meta);
 
             mapi.sendActionbar(ChatColor.GREEN + "You recieved " + ChatColor.GOLD + dropcrop.getAmount() + " produce and " + dropseeds.getAmount() + " seeds!" ,p);
+
+            levelManager.setXp(levelManager.getXp() + 10);
+            plugin.saveConfig();
+            plugin.reloadConfig();
+            xpapi.xpCheck(p, levelManager);
         }else {
             //If crop is broke with your fist It will drop nothing and send a message.
             if(b.getType() == Material.WHEAT || b.getType() == Material.BEETROOTS || b.getType() == Material.CARROTS || b.getType() == Material.POTATOES || b.getType() == Material.WHEAT_SEEDS || b.getType() == Material.BEETROOT_SEEDS || b.getType() == Material.CARROT || b.getType() == Material.POTATO){
